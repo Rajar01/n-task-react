@@ -8,15 +8,24 @@ import Home from "./pages/Home";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [loadingAddingTask, setLoadingAddingTask] = useState(false);
   const location = useLocation();
   const { addToast } = useToasts();
 
   useEffect(() => {
     // Fetch All Task
+    setLoading(true);
     axios
       .get("http://localhost:4000/tasks")
-      .then((res) => setTasks(res.data))
-      .catch((err) => addToast(err.message, { appearance: "error" }));
+      .then((res) => {
+        setTasks(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        addToast(err.message, { appearance: "error" });
+        setLoading(false);
+      });
   }, [addToast]);
 
   // Delete Task
@@ -43,6 +52,8 @@ export default function App() {
       return;
     }
 
+    setLoadingAddingTask(true);
+
     axios
       .post("http://localhost:4000/tasks", { title: taskInput })
       .then((res) => {
@@ -52,8 +63,12 @@ export default function App() {
           autoDismissTimeout: 1000,
           autoDismiss: true,
         });
+        setLoadingAddingTask(false);
       })
-      .catch((err) => addToast(err.message, { appearance: "error" }));
+      .catch((err) => {
+        addToast(err.message, { appearance: "error" });
+        setLoadingAddingTask(false);
+      });
   };
 
   return (
@@ -83,6 +98,8 @@ export default function App() {
             path="/"
             element={
               <Home
+                loadingAddingTask={loadingAddingTask}
+                loading={loading}
                 onSubmitTask={onSubmitTask}
                 onDeleteTask={onDeleteTask}
                 tasks={tasks}

@@ -45,6 +45,14 @@ export default function About() {
         <li>
           <a
             className="text-blue-600 font-medium"
+            href="https://www.npmjs.com/package/react-loading"
+          >
+            react-loading v.2.0.3",
+          </a>
+        </li>
+        <li>
+          <a
+            className="text-blue-600 font-medium"
             href="https://tailwindcss.com/docs/installation"
           >
             tailwind v.3.0.8
