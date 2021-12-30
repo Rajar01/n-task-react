@@ -52,8 +52,11 @@ export default function About() {
         </li>
       </ul>
       <p>If you want to see the code you can visit the link below</p>
-      <a className="font-semibold" href="#">
-        https://tailwindcss.com/docs/installation
+      <a
+        className="font-semibold"
+        href="https://github.com/Darkcode321/n-task-react"
+      >
+        https://github.com/Darkcode321/n-task-react
       </a>
     </div>
   );
