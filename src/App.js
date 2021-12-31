@@ -53,6 +53,11 @@ export default function App() {
       return;
     }
 
+    if (taskInput.length > 60) {
+      addToast("Text Too Long", { appearance: "error" });
+      return;
+    }
+
     setLoadingAddingTask(true);
 
     axios
