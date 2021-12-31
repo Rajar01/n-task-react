@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import Header from "./components/Header";
+import APISERVER from "./constant";
 import About from "./pages/About";
 import Home from "./pages/Home";
 
@@ -17,7 +18,7 @@ export default function App() {
     // Fetch All Task
     setLoading(true);
     axios
-      .get("http://localhost:4000/tasks")
+      .get(`${APISERVER}/tasks`)
       .then((res) => {
         setTasks(res.data);
         setLoading(false);
@@ -31,7 +32,7 @@ export default function App() {
   // Delete Task
   const onDeleteTask = (id) => {
     axios
-      .delete(`http://localhost:4000/tasks/${id}`)
+      .delete(`${APISERVER}/tasks/${id}`)
       .then(() => {
         setTasks(tasks.filter((task) => task.id !== id));
         addToast("Successfully Deleted Task", {
@@ -55,7 +56,7 @@ export default function App() {
     setLoadingAddingTask(true);
 
     axios
-      .post("http://localhost:4000/tasks", { title: taskInput })
+      .post(`${APISERVER}/tasks`, { title: taskInput })
       .then((res) => {
         setTasks([...tasks, res.data]);
         addToast("Successfully Added Task", {
